@@ -76,3 +76,4 @@ with tab2:
     uploaded_file = st.file_uploader("Choose a photo from your training set", type=["jpg", "jpeg", "png"])
     if uploaded_file:
         process_image(uploaded_file.read())
+
