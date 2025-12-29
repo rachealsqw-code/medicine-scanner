@@ -4,8 +4,13 @@ import pytesseract
 import numpy as np
 import re
 
-# Update 'USER' to your actual Windows username
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\USER\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+import os
+
+# This tells the cloud where the Linux version of Tesseract is
+if os.name == 'nt': # If running on your Windows PC
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Users\USER\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+else: # If running on the Streamlit Cloud (Linux)
+    pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
 st.set_page_config(page_title="Medicine OCR Scanner", page_icon="💊")
 st.title("💊 Medicine Guided Capture")
@@ -47,4 +52,5 @@ with tab1:
 with tab2:
     uploaded_file = st.file_uploader("Upload from API training photos", type=["jpg", "jpeg", "png"])
     if uploaded_file:
+
         process_image(uploaded_file.read())
